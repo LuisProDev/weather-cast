@@ -80,7 +80,9 @@ class Ui_MainWindow(object):
         self.label.setGeometry(QtCore.QRect(10, 20, 41, 31))
         self.label.setStyleSheet("image: url(:/logo/temp.png);")
         self.label.setText("")
-        self.label.setPixmap(QtGui.QPixmap(":/logo/kisspng-temperature-thermometer-computer-icons-clip-art-temperature-png-transparent-images-5aae92a8a3c7e9.9723450715213902486709.png"))
+        self.label.setPixmap(QtGui.QPixmap(":/logo/kisspng-temperature-thermometer-computer-"
+                                           "icons-clip-art-temperature-png-transparent-images-"
+                                           ".9723450715213902486709.png"))
         self.label.setScaledContents(True)
         self.label.setObjectName("label")
 
@@ -176,13 +178,17 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
-
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "Previsão do Tempo"))
         self.local_button.setText(_translate("MainWindow", "Buscar localização"))
-        self.dia.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:12pt; font-weight:700; color:#797979;\">03-08</span></p></body></html>"))
-        self.temp.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:12pt; font-weight:700; font-style:italic; color:#7a7a7a;\">23°</span></p></body></html>"))
+        self.dia.setText(_translate("MainWindow", "<html><head/><body><p><span style=\""
+                                                  " font-size:12pt; font-weight:700; "
+                                                  "color:#797979;\">03-08</span></p></body></html>"))
+        self.temp.setText(_translate("MainWindow", "<html><head/><body><p><span style="
+                                                   " font-size:12pt; font-weight:700;"
+                                                   " font-style:italic; color:#7a7a7a;\""
+                                                   ">23°</span></p></body></html>"))
         self.latitude_entry.setPlaceholderText(_translate("MainWindow", "Latitude"))
         self.longitude_entry.setPlaceholderText(_translate("MainWindow", "Longitude"))
 
