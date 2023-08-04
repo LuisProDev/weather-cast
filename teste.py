@@ -7,8 +7,10 @@ class Ui_MainWindow(object):
         MainWindow.resize(1000, 500)
         MainWindow.setMinimumSize(QtCore.QSize(1000, 500))
         MainWindow.setMaximumSize(QtCore.QSize(1000, 500))
+
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
+
         self.verticalLayout = QtWidgets.QVBoxLayout(self.centralwidget)
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout.setObjectName("verticalLayout")
@@ -167,7 +169,6 @@ class Ui_MainWindow(object):
                                         "}")
         self.seta_direita.setText("")
         self.seta_direita.setObjectName("seta_direita")
-        self.seta_direita.clicked.connect(self.teste)
 
         self.verticalLayout.addWidget(self.fundo_frame)
         MainWindow.setCentralWidget(self.centralwidget)
@@ -175,12 +176,10 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
-    def teste(self):
-        print("apertou")
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "Previsão do Tempo"))
         self.local_button.setText(_translate("MainWindow", "Buscar localização"))
         self.dia.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:12pt; font-weight:700; color:#797979;\">03-08</span></p></body></html>"))
         self.temp.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:12pt; font-weight:700; font-style:italic; color:#7a7a7a;\">23°</span></p></body></html>"))
