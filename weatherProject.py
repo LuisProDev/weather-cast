@@ -1,5 +1,5 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-
+import datetime
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -178,13 +178,18 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
+
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "Previsão do Tempo"))
         self.local_button.setText(_translate("MainWindow", "Buscar localização"))
+
+        data = datetime.datetime.now()
+        dia = data.strftime('%m/%d')
         self.dia.setText(_translate("MainWindow", "<html><head/><body><p><span style=\""
                                                   " font-size:12pt; font-weight:700; "
-                                                  "color:#797979;\">03-08</span></p></body></html>"))
+                                                  f"color:#797979;\">{dia}</span></p></body></html>"))
+
         self.temp.setText(_translate("MainWindow", "<html><head/><body><p><span style="
                                                    " font-size:12pt; font-weight:700;"
                                                    " font-style:italic; color:#7a7a7a;\""
