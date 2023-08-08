@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="logo">
+    <file>botao-play.png</file>
     <file>setaesquerda.png</file>
     <file>temp.png</file>
     <file>setadireita.png</file>

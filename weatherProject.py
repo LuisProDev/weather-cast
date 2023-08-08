@@ -2,6 +2,10 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 import datetime
 
 class Ui_MainWindow(object):
+    def __init__(self):
+        super().__init__()
+        self.data_atual = datetime.datetime.today()
+
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(1000, 500)
@@ -150,6 +154,7 @@ class Ui_MainWindow(object):
         self.voltar_button.setDefault(False)
         self.voltar_button.setFlat(False)
         self.voltar_button.setObjectName("voltar_button")
+        self.voltar_button.clicked.connect(self.comando_esquerdo)
 
         self.seta_direita = QtWidgets.QPushButton(self.fundo_frame)
         self.seta_direita.setGeometry(QtCore.QRect(610, 160, 50, 100))
@@ -171,6 +176,7 @@ class Ui_MainWindow(object):
                                         "}")
         self.seta_direita.setText("")
         self.seta_direita.setObjectName("seta_direita")
+        self.seta_direita.clicked.connect(self.comando_direito)
 
         self.verticalLayout.addWidget(self.fundo_frame)
         MainWindow.setCentralWidget(self.centralwidget)
@@ -178,6 +184,21 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
+    def comando_direito(self):
+        _translate = QtCore.QCoreApplication.translate
+        self.data_atual += datetime.timedelta(days=1)
+        data_formatada = self.data_atual.strftime('%d/%m')
+        self.dia.setText(_translate("MainWindow", "<html><head/><body><p><span style=\""
+                                                  " font-size:12pt; font-weight:700; "
+                                                  f"color:#797979;\">{data_formatada}</span></p></body></html>"))
+
+    def comando_esquerdo(self):
+        _translate = QtCore.QCoreApplication.translate
+        self.data_atual -= datetime.timedelta(days=1)
+        data_formatada = self.data_atual.strftime('%d/%m')
+        self.dia.setText(_translate("MainWindow", "<html><head/><body><p><span style=\""
+                                                  " font-size:12pt; font-weight:700; "
+                                                  f"color:#797979;\">{data_formatada}</span></p></body></html>"))
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate

@@ -23,7 +23,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Previsão do tempo</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -43,6 +43,9 @@
      <widget class="QFrame" name="fundo_frame">
       <property name="enabled">
        <bool>true</bool>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
       </property>
       <property name="styleSheet">
        <string notr="true">background-color: rgb(44, 44, 44);</string>
@@ -371,6 +374,40 @@ QPushButton:pressed{
        </property>
        <property name="text">
         <string/>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="pushButton">
+       <property name="geometry">
+        <rect>
+         <x>440</x>
+         <y>400</y>
+         <width>101</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton{
+	background-color: rgb(50, 50, 50);
+	border: 2px solid rgb(60, 60, 60);
+	border-radius: 5px;
+	text-align: center;
+
+	color: rgb(188, 188, 188);
+}
+QPushButton:hover{
+	border: 2px solid rgb(77, 77, 77);
+}
+QPushButton:pressed{
+	background-color: rgb(117, 117, 117);
+}
+</string>
+       </property>
+       <property name="text">
+        <string>Previsão</string>
+       </property>
+       <property name="icon">
+        <iconset resource="images.qrc">
+         <normaloff>:/logo/botao-play.png</normaloff>:/logo/botao-play.png</iconset>
        </property>
       </widget>
      </widget>
