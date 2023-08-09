@@ -1,3 +1,7 @@
 *.png
 .idea
 __pycache__
+keys.py
+firstW.ui
+img.py
+copy.py
