@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="logo">
+    <file>icons8-cloud-64.png</file>
     <file>botao-play.png</file>
     <file>setaesquerda.png</file>
     <file>temp.png</file>

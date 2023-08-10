@@ -1,4 +1,5 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtGui import QKeyEvent
 from janela_secundaria import Ui_OtherWindow
 import datetime
 import keys
@@ -21,6 +22,7 @@ class Ui_MainWindow(object):
         MainWindow.resize(1000, 500)
         MainWindow.setMinimumSize(QtCore.QSize(1000, 500))
         MainWindow.setMaximumSize(QtCore.QSize(1000, 500))
+        MainWindow.setWindowIcon(QtGui.QIcon("icons8-cloud-64.png"))
 
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")

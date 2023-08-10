@@ -16,6 +16,8 @@ class Ui_OtherWindow(object):
         OtherWindow.resize(400, 300)
         OtherWindow.setMinimumSize(QtCore.QSize(400, 300))
         OtherWindow.setMaximumSize(QtCore.QSize(418, 300))
+        OtherWindow.setWindowIcon(QtGui.QIcon("icons8-cloud-64.png"))
+
         self.centralwidget = QtWidgets.QWidget(OtherWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.centralwidget)
