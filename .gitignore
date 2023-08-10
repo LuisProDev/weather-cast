@@ -1,5 +1,6 @@
+.gitignore
 *.png
 .idea
 __pycache__
 keys.py
-copy.py
+copias.py
