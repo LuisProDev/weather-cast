@@ -87,6 +87,7 @@ class Ui_OtherWindow(object):
 "}\n"
 "")
         self.botao_copiar.setObjectName("botao_copiar")
+
         self.lat_label = QtWidgets.QLabel(self.frame)
         self.lat_label.setGeometry(QtCore.QRect(230, 180, 131, 31))
         self.lat_label.setStyleSheet("")
@@ -94,6 +95,7 @@ class Ui_OtherWindow(object):
         self.lat_label.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
         self.lat_label.setWordWrap(False)
         self.lat_label.setObjectName("lat_label")
+
         self.long_label = QtWidgets.QLabel(self.frame)
         self.long_label.setGeometry(QtCore.QRect(230, 210, 131, 31))
         self.long_label.setStyleSheet("")
@@ -101,6 +103,7 @@ class Ui_OtherWindow(object):
         self.long_label.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
         self.long_label.setWordWrap(False)
         self.long_label.setObjectName("long_label")
+
         self.buscar_button = QtWidgets.QPushButton(self.frame)
         self.buscar_button.setGeometry(QtCore.QRect(260, 80, 111, 41))
         self.buscar_button.setMinimumSize(QtCore.QSize(10, 0))

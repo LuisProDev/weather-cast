@@ -219,14 +219,48 @@ class Ui_MainWindow(object):
         # Conexões
         self.local_button.clicked.connect(self.abrir_janela)
         self.seta_direita.clicked.connect(self.comando_direito)
-        ui.ui_secundaria.buscar_button.clicked.connect(self.buscar_latlon)
+        ui.ui_secundaria.botao_copiar.clicked.connect(self.copiar_para_previsao)
+        ui.ui_secundaria.buscar_button.clicked.connect(self.buscar_lat_lon)
 
-    def buscar_latlon(self):
+    # Funções da segunda janela
+    def buscar_lat_lon(self):
         cidade = self.ui_secundaria.cidade_entry.text()
         estado = self.ui_secundaria.estado_entry.text()
+
         self.geo_system(cidade, estado)
 
-    # Funções
+    def copiar_para_previsao(self):
+        self.latitude_entry.setText(str(self.user_lat))
+        self.longitude_entry.setText(str(self.user_long))
+
+    def geo_system(self, cidade, estado):
+        _translate = QtCore.QCoreApplication.translate
+        api_key = keys.api_key
+
+        geo_loc = requests.get(url=f"http://api.openweathermap.org/geo/1.0/direct?q={cidade},"
+                                   f" {estado} &limit=5&appid={api_key}")
+        geo_loc.raise_for_status()
+        geo_data = geo_loc.json()
+        self.user_lat = geo_data[0]['lat']
+        self.user_long = geo_data[0]["lon"]
+
+        ui.ui_secundaria.lat_label.setText(f"Lat:{self.user_lat}")
+        ui.ui_secundaria.lat_label.setText(_translate("OtherWindow","<html><head/><body><p><span style=\""
+                                                                    " font-size:12pt; font-weight:700; "
+                                                                    f"color:#797979;\">Lat:{self.user_lat}"
+                                                                    f"</span></p></body></html>"))
+        ui.ui_secundaria.lat_label.setGeometry(QtCore.QRect(230, 180, 150, 31))
+
+        ui.ui_secundaria.long_label.setText(f"Lon:{self.user_long}")
+        ui.ui_secundaria.long_label.setText(_translate("OtherWindow", "<html><head/><body><p><span style=\""
+                                                                      " font-size:12pt; font-weight:700;"
+                                                                      f" color:#797979;\">Lon:{self.user_long}"
+                                                                      "</span></p></body></html>"))
+        ui.ui_secundaria.long_label.setGeometry(QtCore.QRect(230, 210, 150, 31))
+
+        print(self.user_lat, self.user_long)
+
+    # Funções Janela Principal
     def comando_direito(self):
         _translate = QtCore.QCoreApplication.translate
         self.data_atual += datetime.timedelta(days=1)
@@ -243,16 +277,6 @@ class Ui_MainWindow(object):
                                                   " font-size:12pt; font-weight:700; "
                                                   f"color:#797979;\">{data_formatada}</span></p></body></html>"))
 
-    def geo_system(self, cidade, estado):
-        api_key = keys.api_key
-
-        geo_loc = requests.get(url=f"http://api.openweathermap.org/geo/1.0/direct?q={cidade},"
-                                   f" {estado} &limit=5&appid={api_key}")
-        geo_loc.raise_for_status()
-        geo_data = geo_loc.json()
-        self.user_lat = geo_data[0]['lat']
-        self.user_long = geo_data[0]["lon"]
-        print(self.user_lat, self.user_long)
 
     def weather_system(self):
         weather_key = keys.weather_key
@@ -271,6 +295,8 @@ class Ui_MainWindow(object):
         self.seven_days = []
         for i in range(0, 7):
             self.seven_days.append(weather_data['forecast']['forecastday'][i]['day']['condition'])
+
+
 
 
     def retranslateUi(self, MainWindow):
