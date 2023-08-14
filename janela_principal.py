@@ -16,6 +16,7 @@ class Ui_MainWindow(object):
         self.chuva = ":/days/chuva.png"
         self.chuva_nublado = ":/days/chuva e nublado.png"
         self.nublado = ":/days/nublado.png"
+        self.dia_atual = 0
 
     def abrir_janela(self):
         self.second_window.show()
@@ -271,12 +272,14 @@ class Ui_MainWindow(object):
     # Funções Janela Principal
     def comando_direito(self):
         _translate = QtCore.QCoreApplication.translate
+        self.dia_atual += 1
         self.data_atual += datetime.timedelta(days=1)
         data_formatada = self.data_atual.strftime('%d/%m')
         self.dia.setText(_translate("MainWindow", "<html><head/><body><p><span style=\""
                                                   " font-size:12pt; font-weight:700; "
                                                   f"color:#797979;\">{data_formatada}"
                                                   f"</span></p></body></html>"))
+
 
     def comando_esquerdo(self):
         _translate = QtCore.QCoreApplication.translate
@@ -286,7 +289,6 @@ class Ui_MainWindow(object):
                                                   " font-size:12pt; font-weight:700; "
                                                   f"color:#797979;\">{data_formatada}"
                                                   f"</span></p></body></html>"))
-
 
     def weather_system(self):
         user_lat = self.latitude_entry.text()
@@ -309,6 +311,7 @@ class Ui_MainWindow(object):
         for i in range(0, 7):
             self.seven_days.append(weather_data['forecast']['forecastday'][i]['day']['condition'])
 
+    def check_weather(self):
 
 
     def retranslateUi(self, MainWindow):
