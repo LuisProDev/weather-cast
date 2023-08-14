@@ -311,13 +311,14 @@ class Ui_MainWindow(object):
                     "hour": 16
                 }
                 weather_connection = requests.get(wheather_endp, params=wheather_param)
+                print("ok")
                 weather_connection.raise_for_status()
                 weather_data = weather_connection.json()
 
                 self.seven_days = []
                 for i in range(0, 7):
                     self.seven_days.append(weather_data['forecast']['forecastday'][i]['day'])
-                self.check_weather(self.seven_days[self.dia_atual]['condition']['code'])
+                # self.check_weather(self.seven_days[self.dia_atual]['condition']['code'])
                 print(self.seven_days)
             else:
                 messagebox.showerror("Não foi possível encontrar sua localização, insira novamente.")
@@ -344,6 +345,7 @@ class Ui_MainWindow(object):
             self.icon_temp.setScaledContents(False)
             self.icon_temp.setPixmap(QtGui.QPixmap(self.sunny))
             self.icon_temp.setGeometry(QtCore.QRect(25, 30, 211, 131))
+            return
 
 
     def retranslateUi(self, MainWindow):
