@@ -138,6 +138,7 @@ class Ui_OtherWindow(object):
         self.lat_label.setText(_translate("OtherWindow", "<html><head/><body><p><span style=\" font-size:12pt; font-weight:700; color:#797979;\">Lat:</span></p></body></html>"))
         self.long_label.setText(_translate("OtherWindow", "<html><head/><body><p><span style=\" font-size:12pt; font-weight:700; color:#797979;\">Lon: </span></p></body></html>"))
         self.buscar_button.setText(_translate("OtherWindow", "Buscar"))
+
 import img
 
 

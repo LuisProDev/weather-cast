@@ -1,5 +1,6 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from janela_secundaria import Ui_OtherWindow
+from tkinter import messagebox
 import datetime
 import keys
 import requests
@@ -194,7 +195,7 @@ class Ui_MainWindow(object):
         self.seta_direita.setObjectName("seta_direita")
 
         self.botao_previsao = QtWidgets.QPushButton(self.fundo_frame)
-        self.botao_previsao.setGeometry(QtCore.QRect(440, 400, 101, 31))
+        self.botao_previsao.setGeometry(QtCore.QRect(447, 400, 101, 31))
         self.botao_previsao.setStyleSheet("QPushButton{\n"
                                             "    background-color: rgb(50, 50, 50);\n"
                                             "    border: 2px solid rgb(60, 60, 60);\n"
@@ -294,24 +295,42 @@ class Ui_MainWindow(object):
         user_lat = self.latitude_entry.text()
         user_long = self.longitude_entry.text()
 
-        weather_key = keys.weather_key
-        wheather_endp = "http://api.weatherapi.com/v1/forecast.json"
-        wheather_param = {
-            "q": (user_lat, user_long),
-            'key': weather_key,
-            "days": 7,
-            "hour": 16
-        }
+        try:
+            user_lat = float(user_lat)
+            user_long = float(user_long)
 
-        weather_connection = requests.get(wheather_endp, params=wheather_param)
-        weather_connection.raise_for_status()
-        weather_data = weather_connection.json()
+            if -90 <= user_lat <= 90 and -180 <= user_long <= 180:
+                weather_key = keys.weather_key
+                wheather_endp = "http://api.weatherapi.com/v1/forecast.json"
+                wheather_param = {
+                    "q": (user_lat, user_long),
+                    'key': weather_key,
+                    "days": 7,
+                    "hour": 16
+                }
 
-        self.seven_days = []
-        for i in range(0, 7):
-            self.seven_days.append(weather_data['forecast']['forecastday'][i]['day']['condition'])
+                weather_connection = requests.get(wheather_endp, params=wheather_param)
+                weather_connection.raise_for_status()
+                weather_data = weather_connection.json()
 
-    def check_weather(self):
+                self.seven_days = []
+                for i in range(0, 7):
+                    self.seven_days.append(weather_data['forecast']['forecastday'][i]['day'])
+                self.check_weather(self.seven_days['condition']['code'])
+                print(self.seven_days)
+            else:
+                messagebox.showerror("Não foi possível encontrar sua localização, insira novamente.")
+        except ValueError:
+            messagebox.showerror(title="Erro de formato", message="Formato inválido, por favor insira novamente")
+
+    def check_weather(self, weather):
+        self.icon_temp.show()
+        if 1150 < weather < 1201:
+            self.icon_temp.setScaledContents(True)
+        elif weather < 1006:
+            self.icon_temp.setScaledContents(False)
+            self.icon_temp.setPixmap(QtGui.QPixmap(self.sunny))
+            self.icon_temp.setGeometry(QtCore.QRect(25, 30, 211, 131))
 
 
     def retranslateUi(self, MainWindow):
