@@ -12,6 +12,10 @@ class Ui_MainWindow(object):
         self.ui_secundaria.setupUi(self.second_window)
 
         self.data_atual = datetime.datetime.today()
+        self.sunny = ":/days/sol.png"
+        self.chuva = ":/days/chuva.png"
+        self.chuva_nublado = ":/days/chuva e nublado.png"
+        self.nublado = ":/days/nublado.png"
 
     def abrir_janela(self):
         self.second_window.show()
@@ -76,7 +80,7 @@ class Ui_MainWindow(object):
         self.icon_temp.setEnabled(True)
         self.icon_temp.setGeometry(QtCore.QRect(0, 30, 211, 131))
         self.icon_temp.setText("")
-        self.icon_temp.setPixmap(QtGui.QPixmap(":/days/chuva e nublado.png"))
+        self.icon_temp.setPixmap(QtGui.QPixmap(self.chuva_nublado))
         self.icon_temp.setScaledContents(True)
         self.icon_temp.setObjectName("icon_temp")
 
@@ -301,11 +305,11 @@ class Ui_MainWindow(object):
         weather_connection.raise_for_status()
         weather_data = weather_connection.json()
 
-        print("ok")
-
         self.seven_days = []
         for i in range(0, 7):
             self.seven_days.append(weather_data['forecast']['forecastday'][i]['day']['condition'])
+
+
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
