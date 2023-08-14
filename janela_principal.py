@@ -274,7 +274,7 @@ class Ui_MainWindow(object):
     def comando_direito(self):
         _translate = QtCore.QCoreApplication.translate
         self.dia_atual += 1
-        self.check_weather(self.seven_days[self.dia_atual])
+        # self.check_weather(self.seven_days[self.dia_atual])
         self.data_atual += datetime.timedelta(days=1)
         data_formatada = self.data_atual.strftime('%d/%m')
         self.dia.setText(_translate("MainWindow", "<html><head/><body><p><span style=\""
@@ -285,7 +285,8 @@ class Ui_MainWindow(object):
 
     def comando_esquerdo(self):
         _translate = QtCore.QCoreApplication.translate
-        self.dia_atual += 1
+        self.dia_atual -= 1
+        self.check_weather(self.seven_days[self.dia_atual])
         self.data_atual -= datetime.timedelta(days=1)
         data_formatada = self.data_atual.strftime('%d/%m')
         self.dia.setText(_translate("MainWindow", "<html><head/><body><p><span style=\""
@@ -294,6 +295,7 @@ class Ui_MainWindow(object):
                                                   f"</span></p></body></html>"))
 
     def weather_system(self):
+        _translate = QtCore.QCoreApplication.translate
         user_lat = self.latitude_entry.text()
         user_long = self.longitude_entry.text()
 
@@ -305,7 +307,7 @@ class Ui_MainWindow(object):
                 weather_key = keys.weather_key
                 wheather_endp = "http://api.weatherapi.com/v1/forecast.json"
                 wheather_param = {
-                    "q": f"{user_lat},{user_long}",
+                    "q": (user_lat, user_long),
                     'key': weather_key,
                     "days": 7,
                     "hour": 16
@@ -317,6 +319,16 @@ class Ui_MainWindow(object):
                 self.seven_days = []
                 for i in range(0, 7):
                     self.seven_days.append(weather_data['forecast']['forecastday'][i]['day'])
+                self.check_weather(self.seven_days[self.dia_atual]['condition']['code'])
+                # self.icon_temp.show()
+                # self.temp_icon.show()
+                # self.seta_direita.show()
+                # self.temp.show()
+                # self.temp.setText(_translate("MainWindow", "<html><head/><body><p><span style="
+                #                                            " font-size:12pt; font-weight:700;"
+                #                                            " font-style:italic; color:#7a7a7a;\""
+                #                                            f">{self.seven_days[self.dia_atual]['avgtemp_c']}"
+                #                                            f"°</span></p></body></html>"))
                 print(self.seven_days)
             else:
                 messagebox.showerror("Não foi possível encontrar sua localização, insira novamente.")
@@ -327,37 +339,27 @@ class Ui_MainWindow(object):
         except requests.exceptions.RequestException:
             print("ok2")
 
-    # self.check_weather(self.seven_days[self.dia_atual]['condition']['code'])
-    # def check_weather(self, weather):
-    #     _translate = QtCore.QCoreApplication.translate
-    #     self.icon_temp.show()
-    #     self.temp_icon.show()
-    #     self.seta_direita.show()
-    #     self.temp.show()
-    #     self.temp.setText(_translate("MainWindow", "<html><head/><body><p><span style="
-    #                                                " font-size:12pt; font-weight:700;"
-    #                                                " font-style:italic; color:#7a7a7a;\""
-    #                                                f">{self.seven_days[self.dia_atual]['avgtemp_c']}"
-    #                                                f"°</span></p></body></html>"))
-    #     if weather > 1150:
-    #         self.icon_temp.setScaledContents(True)
-    #         self.icon_temp.setPixmap(QtGui.QPixmap(self.chuva_nublado))
-    #         self.icon_temp.setGeometry(QtCore.QRect(0, 30, 211, 131))
-    #         return
-    #     elif weather < 1006:
-    #         self.icon_temp.setScaledContents(False)
-    #         self.icon_temp.setPixmap(QtGui.QPixmap(self.sunny))
-    #         self.icon_temp.setGeometry(QtCore.QRect(25, 30, 211, 131))
-    #         return
-    #     elif weather < 1130:
-    #         self.icon_temp.setScaledContents(False)
-    #         self.icon_temp.setPixmap(QtGui.QPixmap(self.nublado))
-    #         self.icon_temp.setGeometry(QtCore.QRect(18, 30, 211, 131))
-    #         return
-    #     else:
-    #         self.temp_icon.hide()
-    #         self.temp.hide()
-    #         self.icon_temp.hide()
+
+    def check_weather(self, weather):
+        if weather > 1150:
+            self.icon_temp.setScaledContents(True)
+            self.icon_temp.setPixmap(QtGui.QPixmap(self.chuva_nublado))
+            self.icon_temp.setGeometry(QtCore.QRect(0, 30, 211, 131))
+            return
+        elif weather < 1006:
+            self.icon_temp.setScaledContents(False)
+            self.icon_temp.setPixmap(QtGui.QPixmap(self.sunny))
+            self.icon_temp.setGeometry(QtCore.QRect(25, 30, 211, 131))
+            return
+        elif weather < 1130:
+            self.icon_temp.setScaledContents(False)
+            self.icon_temp.setPixmap(QtGui.QPixmap(self.nublado))
+            self.icon_temp.setGeometry(QtCore.QRect(18, 30, 211, 131))
+            return
+        else:
+            self.temp_icon.hide()
+            self.temp.hide()
+            self.icon_temp.hide()
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
