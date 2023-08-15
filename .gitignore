@@ -1,7 +1,0 @@
-.gitignore
-*.png
-.idea
-__pycache__
-keys.py
-*.ui
-.env
