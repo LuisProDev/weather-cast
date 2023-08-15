@@ -1,8 +1,6 @@
 # Aplicativo de Previsão do Tempo
 Este é um aplicativo simples de previsão do tempo construído usando PyQt5 e APIs do WeatherAPI. O aplicativo permite que os usuários obtenham previsões do tempo para uma localização específica com base em latitude e longitude. Ele também inclui uma janela secundária para os usuários inserirem as coordenadas do local desejado.
 
-Para utilizar o aplicativo, simplesmente faça o download do projeto, mude as API's keys no arquivo ".env" execute "Previsão do tempo"
-
 ### Para utilizar o aplicativo direto do código fonte:
 
 Para usar este aplicativo, você precisará de chaves de API do WeatherAPI. Veja como obtê-las:
@@ -23,8 +21,11 @@ pip install PyQt5 requests python-dotenv
 pip install PyQt5
 pip install requests
 
+# Uso do executável
+Para utilizar o aplicativo, simplesmente faça o download do projeto, mude as API's keys no arquivo ".env" execute "Previsão do tempo"
+
 # Uso
-### python janela_principal.py
+### python janela_principal.py ou Execute o arquivo "Previsão do tempo"
 
 Ao iniciar o aplicativo, você verá a janela principal exibindo a previsão do tempo para o dia atual e localização.
 
