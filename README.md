@@ -13,7 +13,7 @@ Chave de API do Geo Localização do WeatherAPI: Você também precisa de uma ch
 
 Depois de obter ambas as chaves de API, edite o arquivo .env e insira suas chaves nos respectivos locais.
 
-api_key = "SUA_CHAVE_DE_API_DO_WEATHERAPI",
+api_key = "SUA_CHAVE_DE_API_DO_WEATHERAPI", 
 weather_key = "SUA_CHAVE_DE_API_DE_GEO_LOCALIZACAO_DO_WEATHERAPI"
 
 ### Instalação
