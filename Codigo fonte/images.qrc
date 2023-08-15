@@ -1,0 +1,16 @@
+<RCC>
+  <qresource prefix="logo">
+    <file>icons8-cloud-64.png</file>
+    <file>botao-play.png</file>
+    <file>setaesquerda.png</file>
+    <file>temp.png</file>
+    <file>setadireita.png</file>
+    <file>pngwing.com.png</file>
+  </qresource>
+  <qresource prefix="days">
+    <file>sol.png</file>
+    <file>chuva.png</file>
+    <file>nublado.png</file>
+    <file>chuva e nublado.png</file>
+  </qresource>
+</RCC>

@@ -19,6 +19,7 @@ class Ui_OtherWindow(object):
         OtherWindow.setMinimumSize(QtCore.QSize(400, 300))
         OtherWindow.setMaximumSize(QtCore.QSize(418, 300))
         OtherWindow.setWindowIcon(QtGui.QIcon(self.window_icon))
+        OtherWindow.setWindowTitle("Buscar localização")
 
         self.centralwidget = QtWidgets.QWidget(OtherWindow)
         self.centralwidget.setObjectName("centralwidget")
