@@ -274,7 +274,12 @@ class Ui_MainWindow(object):
     def comando_direito(self):
         _translate = QtCore.QCoreApplication.translate
         self.dia_atual += 1
-        self.check_weather(self.seven_days[self.dia_atual]['condition']['code'])
+        if self.dia_atual <= 6:
+            self.check_weather(self.seven_days[self.dia_atual]['condition']['code'])
+            if self.dia_atual > 1:
+                self.voltar_button.show()
+        else:
+            self.seta_direita.hide()
         self.data_atual += datetime.timedelta(days=1)
         data_formatada = self.data_atual.strftime('%d/%m')
         self.dia.setText(_translate("MainWindow", "<html><head/><body><p><span style=\""
@@ -286,7 +291,10 @@ class Ui_MainWindow(object):
     def comando_esquerdo(self):
         _translate = QtCore.QCoreApplication.translate
         self.dia_atual -= 1
-        self.check_weather(self.seven_days[self.dia_atual]['condition']['code'])
+        if self.dia_atual > 1:
+            self.check_weather(self.seven_days[self.dia_atual]['condition']['code'])
+        else:
+            self.voltar_button.hide()
         self.data_atual -= datetime.timedelta(days=1)
         data_formatada = self.data_atual.strftime('%d/%m')
         self.dia.setText(_translate("MainWindow", "<html><head/><body><p><span style=\""
@@ -318,6 +326,7 @@ class Ui_MainWindow(object):
                 self.seven_days = []
                 for i in range(0, 7):
                     self.seven_days.append(weather_data['forecast']['forecastday'][i]['day'])
+                weather_connection.close()
                 self.check_weather(self.seven_days[self.dia_atual]['condition']['code'])
                 print(self.seven_days)
             else:
