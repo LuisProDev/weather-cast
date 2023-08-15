@@ -18,6 +18,8 @@ class Ui_MainWindow(object):
         self.chuva_nublado = ":/days/chuva e nublado.png"
         self.nublado = ":/days/nublado.png"
         self.dia_atual = 0
+        self.user_lat = ""
+        self.user_long = ""
 
     def abrir_janela(self):
         self.second_window.show()
@@ -68,8 +70,8 @@ class Ui_MainWindow(object):
         self.local_button.setObjectName("local_button")
 
         self.info_frame = QtWidgets.QFrame(self.fundo_frame)
-        self.info_frame.setGeometry(QtCore.QRect(390, 60, 210, 200))
-        self.info_frame.setMaximumSize(QtCore.QSize(210, 200))
+        self.info_frame.setGeometry(QtCore.QRect(390, 60, 210, 250))
+        self.info_frame.setMaximumSize(QtCore.QSize(210, 250))
         self.info_frame.setAutoFillBackground(False)
         self.info_frame.setStyleSheet("QFrame{\n"
                                         "    background-color: rgb(44, 44, 44);\n"
@@ -80,14 +82,14 @@ class Ui_MainWindow(object):
 
         self.icon_temp = QtWidgets.QLabel(self.info_frame)
         self.icon_temp.setEnabled(True)
-        self.icon_temp.setGeometry(QtCore.QRect(0, 30, 211, 131))
+        self.icon_temp.setGeometry(QtCore.QRect(0, 50, 211, 131))
         self.icon_temp.setText("")
         self.icon_temp.setPixmap(QtGui.QPixmap(self.chuva_nublado))
         self.icon_temp.setScaledContents(True)
         self.icon_temp.setObjectName("icon_temp")
 
         self.dia = QtWidgets.QLabel(self.info_frame)
-        self.dia.setGeometry(QtCore.QRect(70, 160, 61, 31))
+        self.dia.setGeometry(QtCore.QRect(70, 190, 61, 31))
         self.dia.setStyleSheet("")
         self.dia.setScaledContents(False)
         self.dia.setAlignment(QtCore.Qt.AlignCenter)
@@ -99,7 +101,7 @@ class Ui_MainWindow(object):
         self.temp.setObjectName("temp")
 
         self.temp_icon = QtWidgets.QLabel(self.info_frame)
-        self.temp_icon.setGeometry(QtCore.QRect(10, 20, 41, 31))
+        self.temp_icon.setGeometry(QtCore.QRect(10, 15, 41, 31))
         self.temp_icon.setStyleSheet("image: url(:/logo/temp.png);")
         self.temp_icon.setText("")
         self.temp_icon.setPixmap(QtGui.QPixmap(":/logo/kisspng-temperature-thermometer-computer"
@@ -211,9 +213,9 @@ class Ui_MainWindow(object):
                                             "    background-color: rgb(117, 117, 117);\n"
                                             "}\n"
                                             "")
-        icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap(":/logo/botao-play.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.botao_previsao.setIcon(icon1)
+        # icon1 = QtGui.QIcon()
+        # icon1.addPixmap(QtGui.QPixmap(":/logo/botao-play.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        # self.botao_previsao.setIcon(icon1)
         self.botao_previsao.setObjectName("botao_previsao")
         self.botao_previsao.setText("Previsão")
 
@@ -227,6 +229,7 @@ class Ui_MainWindow(object):
         self.local_button.clicked.connect(self.abrir_janela)
         self.seta_direita.clicked.connect(self.comando_direito)
         self.botao_previsao.clicked.connect(self.weather_system)
+        self.voltar_button.clicked.connect(self.comando_esquerdo)
         ui.ui_secundaria.botao_copiar.clicked.connect(self.copiar_para_previsao)
         ui.ui_secundaria.buscar_button.clicked.connect(self.buscar_lat_lon)
 
@@ -274,11 +277,11 @@ class Ui_MainWindow(object):
     def comando_direito(self):
         _translate = QtCore.QCoreApplication.translate
         self.dia_atual += 1
-        if self.dia_atual <= 6:
+        if self.dia_atual <= 5:
             self.check_weather(self.seven_days[self.dia_atual]['condition']['code'])
-            if self.dia_atual > 1:
+            if self.dia_atual >= 1:
                 self.voltar_button.show()
-        else:
+        elif self.dia_atual == 6:
             self.seta_direita.hide()
         self.data_atual += datetime.timedelta(days=1)
         data_formatada = self.data_atual.strftime('%d/%m')
@@ -287,13 +290,12 @@ class Ui_MainWindow(object):
                                                   f"color:#797979;\">{data_formatada}"
                                                   f"</span></p></body></html>"))
 
-
     def comando_esquerdo(self):
         _translate = QtCore.QCoreApplication.translate
         self.dia_atual -= 1
-        if self.dia_atual > 1:
+        if self.dia_atual >= 1:
             self.check_weather(self.seven_days[self.dia_atual]['condition']['code'])
-        else:
+        elif self.dia_atual == 0:
             self.voltar_button.hide()
         self.data_atual -= datetime.timedelta(days=1)
         data_formatada = self.data_atual.strftime('%d/%m')
@@ -333,11 +335,6 @@ class Ui_MainWindow(object):
                 messagebox.showerror("Não foi possível encontrar sua localização, insira novamente.")
         except ValueError:
             messagebox.showerror(title="Erro de formato", message="Formato inválido, por favor insira novamente")
-        except requests.exceptions.HTTPError:
-            print("ok")
-        except requests.exceptions.RequestException:
-            print("ok2")
-
 
     def check_weather(self, weather):
         _translate = QtCore.QCoreApplication.translate
@@ -353,17 +350,17 @@ class Ui_MainWindow(object):
         if weather > 1150:
             self.icon_temp.setScaledContents(True)
             self.icon_temp.setPixmap(QtGui.QPixmap(self.chuva_nublado))
-            self.icon_temp.setGeometry(QtCore.QRect(0, 30, 211, 131))
+            self.icon_temp.setGeometry(QtCore.QRect(0, 50, 211, 131))
             return
         elif weather < 1006:
             self.icon_temp.setScaledContents(False)
             self.icon_temp.setPixmap(QtGui.QPixmap(self.sunny))
-            self.icon_temp.setGeometry(QtCore.QRect(25, 30, 211, 131))
+            self.icon_temp.setGeometry(QtCore.QRect(27, 50, 211, 131))
             return
         elif weather < 1130:
             self.icon_temp.setScaledContents(False)
             self.icon_temp.setPixmap(QtGui.QPixmap(self.nublado))
-            self.icon_temp.setGeometry(QtCore.QRect(18, 30, 211, 131))
+            self.icon_temp.setGeometry(QtCore.QRect(18, 50, 211, 131))
             return
         else:
             self.temp_icon.hide()
@@ -373,7 +370,7 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "Previsão do Tempo"))
-        self.local_button.setText(_translate("MainWindow", "Buscar localização"))
+        self.local_button.setText(_translate("MainWindow", " Buscar localização"))
 
         data = datetime.datetime.now()
         dia = data.strftime('%d/%m')
@@ -392,11 +389,8 @@ class Ui_MainWindow(object):
         self.temp.hide()
         self.seta_direita.hide()
         self.voltar_button.hide()
-        self.icon_temp.hide()
-
 
 import img
-
 
 if __name__ == "__main__":
     import sys
