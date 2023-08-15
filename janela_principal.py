@@ -1,10 +1,16 @@
+import os
+
 from PyQt5 import QtCore, QtGui, QtWidgets
 from janela_secundaria import Ui_OtherWindow
 from tkinter import messagebox
 import datetime
 import keys
 import requests
+from dotenv import load_dotenv
 
+
+def configure():
+    load_dotenv()
 
 class Ui_MainWindow(object):
     def __init__(self):
@@ -249,7 +255,7 @@ class Ui_MainWindow(object):
         api_key = keys.api_key
 
         geo_loc = requests.get(url=f"http://api.openweathermap.org/geo/1.0/direct?q={cidade},"
-                                   f" {estado} &limit=5&appid={api_key}")
+                                   f" {estado} &limit=5&appid={os.getenv('api_key')}")
         geo_loc.raise_for_status()
         geo_data = geo_loc.json()
         self.user_lat = geo_data[0]['lat']
@@ -317,7 +323,7 @@ class Ui_MainWindow(object):
                 wheather_endp = "http://api.weatherapi.com/v1/forecast.json"
                 wheather_param = {
                     "q": (user_lat, user_long),
-                    'key': weather_key,
+                    'key': os.getenv('weather_key'),
                     "days": 7,
                     "hour": 16
                 }
@@ -394,6 +400,7 @@ import img
 
 if __name__ == "__main__":
     import sys
+    configure()
     app = QtWidgets.QApplication(sys.argv)
     MainWindow = QtWidgets.QMainWindow()
     ui = Ui_MainWindow()
