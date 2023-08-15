@@ -23,6 +23,7 @@ class Ui_MainWindow(object):
         self.chuva = ":/days/chuva.png"
         self.chuva_nublado = ":/days/chuva e nublado.png"
         self.nublado = ":/days/nublado.png"
+        self.window_icon = ":/logo/icons8-cloud-64.png"
         self.dia_atual = 0
         self.user_lat = ""
         self.user_long = ""
@@ -35,7 +36,7 @@ class Ui_MainWindow(object):
         MainWindow.resize(1000, 500)
         MainWindow.setMinimumSize(QtCore.QSize(1000, 500))
         MainWindow.setMaximumSize(QtCore.QSize(1000, 500))
-        MainWindow.setWindowIcon(QtGui.QIcon("icons8-cloud-64.png"))
+        MainWindow.setWindowIcon(QtGui.QIcon(self.window_icon))
 
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
