@@ -218,9 +218,7 @@ class Ui_MainWindow(object):
                                             "    background-color: rgb(117, 117, 117);\n"
                                             "}\n"
                                             "")
-        # icon1 = QtGui.QIcon()
-        # icon1.addPixmap(QtGui.QPixmap(":/logo/botao-play.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        # self.botao_previsao.setIcon(icon1)
+
         self.botao_previsao.setObjectName("botao_previsao")
         self.botao_previsao.setText("Previsão")
 
